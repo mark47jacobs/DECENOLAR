@@ -1,0 +1,20 @@
+.main-body{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+}
+.main-body p,span{
+    margin:20px;
+    font-size: large;
+}
+.options{
+    padding:2rem;
+}
+.options button{
+    margin:2rem;
+    font-size: 1rem;
+    height:4rem;
+    width:14rem;
+}

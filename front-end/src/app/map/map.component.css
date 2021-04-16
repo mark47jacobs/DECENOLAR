@@ -1,0 +1,33 @@
+.match-parent {
+    width: 100%;
+    height: 100%;
+  }
+.locations{
+    position:absolute;
+    top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width:95%;
+    margin:auto;
+    height: 6rem;
+    border-radius: 20px;
+    background-color: rgba(255, 255, 255, 0.904);
+}
+.geocoder {
+    z-index: 0!important;
+    margin:0.6rem;
+}
+.mapboxgl-ctrl-geocoder {
+    min-width: 100%;
+}
+.main{
+    position:relative;
+    width:100%;
+    height:100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}

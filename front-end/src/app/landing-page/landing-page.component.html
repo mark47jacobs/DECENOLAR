@@ -1,0 +1,30 @@
+<div class="hero-copy">
+    <div *ngIf="!contractManager.userData.isDriver" [ngsRevealSet]="contractManager.srconfig1"
+        [ngsSelector]="'.hero-title, .hero-paragraph, .hero-form,.hero-ball, .hero-squares,.button-sp'">
+        <div class="container-sm">
+            <h1 style="font-size: 1.7rem;" class="hero-title h2-mobile mt-0">
+                Where to ?
+            </h1>
+            <p class="hero-paragraph ">Just a few steps and you'll be on your way ....</p>
+        </div>
+        <button (click)="redirect()" class="button button-primary button-shadow mat-elevation-z15 main-body button-sp">I
+            want to
+            book
+            a ride
+            now!</button>
+    </div>
+    <div *ngIf="contractManager.userData.isDriver" [ngsRevealSet]="contractManager.srconfig1"
+        [ngsSelector]="'.hero-title, .hero-paragraph, .hero-form,.hero-ball, .hero-squares,.button-sp'">
+        <div class="container-sm">
+            <h1 style="font-size: 1.7rem;" class="hero-title h2-mobile mt-0">
+                Ready ?
+            </h1>
+            <p class="hero-paragraph ">Just a few steps and you'll have passenger(s)
+                onboard!</p>
+        </div>
+        <button (click)="redirect()" class="button button-primary button-shadow mat-elevation-z15 main-body button-sp">I
+            am to
+            ready to accept rides now!</button>
+    </div>
+    <!-- <NewsletterForm class="hero-form" submit="Get early access" /> -->
+</div>

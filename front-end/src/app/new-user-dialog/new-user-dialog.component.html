@@ -1,0 +1,35 @@
+<div class="container" style="position: relative;">
+    <p style="position:absolute;top:15px;left:15px;cursor:pointer;z-index:100000000" *ngIf="index > 0 ">
+        <b (click)="decreaseIndex()">BACK</b>
+    </p>
+    <div class="hero-inner main-body" *ngIf="index == 0 ">
+
+        <p>The Following account is detected:</p>
+        <p>name : {{this.contractManager.getFakeName()}}</p>
+        <p>wallet address : {{this.contractManager.account}}</p>
+        <span>It seems this account is not registered with us, so to use our service with this account please
+            proceed as
+            a new user, or select an already registered account through Metamask(recomended)</span>
+        <button style="border:0px!important" (click)="increaseIndex()"
+            class="button button-primary button-shadow">Register as a New User</button>
+        <p style="font-size: large;font-weight: 700;">NOTE: To register through a new account GAS fee has to be paid
+            which is borne by the user.</p>
+    </div>
+    <div class="hero-inner main-body options " *ngIf="index == 1 ">
+        <button class="button button-primary button-shadow main-body mat-elevation-z7"
+            (click)="register('rider')">Register as
+            Rider</button>
+        <button class="button button-primary button-shadow main-body mat-elevation-z7"
+            (click)="register('driver')">Register as
+            Driver</button>
+    </div>
+    <div class="hero-inner main-body options " *ngIf="index == 2 ">
+        <form id="content">
+            <label for="driverLicence">Driving License Number:</label><br>
+            <input id="driverLicence" type="text" [formControl]="driverControl"
+                style="border: 1px solid rgba(0, 0, 0, 0.849)">
+            <button class="button button-primary button-shadow main-body mat-elevation-z7" style="padding:10px"
+                id="search-btn" (click)="registerDriver()">Register</button>
+        </form>
+    </div>
+</div>

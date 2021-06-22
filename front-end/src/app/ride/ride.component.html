@@ -34,6 +34,14 @@
                 </div>
             </div>
         </div>
-        <app-map style="width:100%;height:100%" (infoSet)="infoSet($event)"></app-map>
+        <!-- <app-map style="width:100%;height:100%" (infoSet)="infoSet($event)"></app-map> -->
+        <div class="main">
+            <div class="map" id="map" class="match-parent"></div>
+
+            <div class="locations mat-elevation-z-10" *ngIf="!rideManager.rideDetailsSet">
+                <div id="geocoder1" class="geocoder"></div>
+                <div id="geocoder2" class="geocoder"></div>
+            </div>
+        </div>
     </div>
 </div>

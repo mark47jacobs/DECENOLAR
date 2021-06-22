@@ -4,7 +4,6 @@ import { RideManagerService } from '../ride-manager.service';
 import * as mapboxgl from 'mapbox-gl';
 import * as MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
 import { environment } from 'src/environments/environment';
-import { throwIfEmpty } from 'rxjs/operators';
 
 @Component({
   selector: 'app-get-ride',

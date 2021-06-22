@@ -10,7 +10,7 @@ import { NewUserDialogComponent } from './new-user-dialog/new-user-dialog.compon
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit, AfterViewInit {
+export class AppComponent implements OnInit {
   title = 'front-end';
   constructor(public contractManager: ContractManagerService,
     private dialog: MatDialog,
@@ -32,8 +32,6 @@ export class AppComponent implements OnInit, AfterViewInit {
     }, 1500);
   }
 
-  ngAfterViewInit() {
-  }
   openNewUserDialog() {
     this.dialog.closeAll();
     if (!this.contractManager.userData) {

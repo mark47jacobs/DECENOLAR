@@ -1,7 +1,6 @@
 import { AfterViewInit, Component, Inject, OnInit } from '@angular/core';
 import { ContractManagerService } from '../contract-manager.service';
 
-
 import { Router } from '@angular/router';
 
 @Component({

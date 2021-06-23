@@ -183,13 +183,13 @@ export class RideComponent implements OnInit {
       if (response.success) {
         console.log(response);
         this.rideManager.rideRequestSuccessfull = true;
-        this.timeInterval = interval(30000).pipe(
+        this.timeInterval = interval(5000).pipe(
           startWith(0),
           switchMap(() => this.contractManager.checkRideRequestStatus())).subscribe((response: any) => {
             console.log(response);
             if (response.status === "accepted") {
               this.message = 'Your ride has been accepted';
-              this.rideManager.ride_data = response.data;
+              this.rideManager.ride_data = response.data[0];
               console.log(this.rideManager.ride_data);
             }
             else if (response.status === "expired") {
@@ -201,6 +201,5 @@ export class RideComponent implements OnInit {
           })
       }
     });
-
   }
 }

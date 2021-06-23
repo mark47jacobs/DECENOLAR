@@ -16,7 +16,7 @@ import { MapComponent } from './map/map.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { RideComponent } from './ride/ride.component';
 import { GetRideComponent } from './get-ride/get-ride.component';
-
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,7 +37,8 @@ import { GetRideComponent } from './get-ride/get-ride.component';
     FormsModule,
     ReactiveFormsModule,
     NgxJdenticonModule,
-    HttpClientModule
+    HttpClientModule,
+    MatSnackBarModule
   ],
   providers: [
     {

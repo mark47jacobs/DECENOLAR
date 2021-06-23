@@ -225,14 +225,16 @@ export class GetRideComponent implements OnInit {
   timeInterval: any;
 
   startPollingForRideFinishConfirmation() {
-    this.timeInterval = interval(30000).pipe(
+    this.timeInterval = interval(5000).pipe(
       startWith(0),
       switchMap(() => this.contractManager.checkRideStatusAndCompleteDriver())).subscribe((response: any) => {
         console.log(response);
         if (response.success) {
           this.rideManager._driver_driverMessage = 'Ride has been completed and payment done!';
+          this.contractManager.snackBar.open('Ride has been completed and payment done!', 'OKAY', {
+            duration: 8000
+          })
           history.back();
-          this.rideManager.ride_data = response.data;
           console.log(this.rideManager.ride_data);
           this.timeInterval.unsubscribe();
         }

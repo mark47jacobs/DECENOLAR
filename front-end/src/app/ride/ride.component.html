@@ -32,12 +32,15 @@
                     <div class="bounce2"></div>
                     <div class="bounce3"></div>
                 </div>
+                <button *ngIf="rideManager.ride_data"
+                    class="button button-primary button-shadow button-sp mat-elevation-z7"
+                    (click)="contractManager.payMoneyToDriver(rideManager.ride_data.driverId)">Confirm Ride
+                    Completion</button>
             </div>
         </div>
         <!-- <app-map style="width:100%;height:100%" (infoSet)="infoSet($event)"></app-map> -->
         <div class="main">
             <div class="map" id="map" class="match-parent"></div>
-
             <div class="locations mat-elevation-z-10" *ngIf="!rideManager.rideDetailsSet">
                 <div id="geocoder1" class="geocoder"></div>
                 <div id="geocoder2" class="geocoder"></div>

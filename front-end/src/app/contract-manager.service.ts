@@ -11,7 +11,7 @@ import { NewUserDialogComponent } from './new-user-dialog/new-user-dialog.compon
 import { RideManagerService } from './ride-manager.service';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-
+import { MatSnackBar } from '@angular/material/snack-bar';
 @Injectable({
   providedIn: 'root'
 })
@@ -31,7 +31,8 @@ export class ContractManagerService {
   constructor(public srconfig1: NgsRevealConfig,
     public rideManager: RideManagerService,
     public http: HttpClient,
-    @Inject(DOCUMENT) private document: Document,) {
+    @Inject(DOCUMENT) private document: Document,
+    public snackBar: MatSnackBar) {
 
     srconfig1.duration = 2500;
     srconfig1.distance = '280px';
@@ -100,13 +101,23 @@ export class ContractManagerService {
       this.rideManager.costINR = result / this.RESOLUTION;
       this.http.get('http://api.coinlayer.com/live?access_key=ae1de4e0e684e8058dfedc31b0c3e9b3&target=INR&symbols=ETH').subscribe((response: any) => {
         this.rideManager.costETH = this.rideManager.costINR / response.rates.ETH;
-      });
+      },
+        (err: any) => {
+          this.rideManager.costETH = this.rideManager.costINR / 147409; // approx value in market incase api fails
+        });
     });
   }
 
   payMoneyToDriver(driverId: any) {
-    this.decenolar.methods.tipImageOwner(driverId).send({ from: this.account, value: this.rideManager.costETH }).on('transactionHash', (hash: any) => {
-      history.back();
+    this.decenolar.methods.finishTransaction(this.rideManager.ride_data.driverid).send({ from: this.account, value: this.window.web3.utils.toWei(String(this.rideManager.costETH.toFixed(9)), 'Ether') }).on('transactionHash', (hash: any) => {
+      this.confirmRideCompleteRider().subscribe((response: any) => {
+        if (response.success) {
+          this.snackBar.open('Money paid to the driver.... Have fun!!', 'OKAY', {
+            duration: 8000
+          });
+          history.back();
+        }
+      });
     })
   }
 
@@ -213,5 +224,11 @@ export class ContractManagerService {
       "_id": this.rideManager._driver_ongoingRideData._id
     }
     return this.http.post(environment.backend.url + '/checkRideStatusAndCompleteDriver', reqBody);
+  }
+  confirmRideCompleteRider() {
+    let reqBody = {
+      "_id": this.rideManager.ride_data._id
+    }
+    return this.http.post(environment.backend.url + '/confirmRideCompleteRider', reqBody);
   }
 }

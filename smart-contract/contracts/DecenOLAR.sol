@@ -100,6 +100,11 @@ contract DecenOLAR {
         else return false;
     }
 
+    function finishTransaction(address payable driver) public payable {
+        // transact the ride amount
+        (driver).transfer(msg.value);
+    }
+
     // method to return the cost in INR based on the standard model for taxi pricing
     // laid by the government of Karnataka.
     function getCalculatedCost(uint256 _distance)

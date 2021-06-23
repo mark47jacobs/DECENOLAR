@@ -27,7 +27,7 @@
             <div *ngIf="rideManager.rideRequestSuccessfull"
                 style="display: flex;flex-direction: column-reverse;align-items: center;justify-content: center;">
                 <p>{{message}}</p>
-                <div class="spinner">
+                <div class="spinner" [hidden]="rideManager.ride_data">
                     <div class="bounce1"></div>
                     <div class="bounce2"></div>
                     <div class="bounce3"></div>

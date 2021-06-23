@@ -15,7 +15,7 @@
                         {{rideManager._driver_fetchedOptimalRideData.costINR}} |
                         {{(rideManager._driver_fetchedOptimalRideData.costETH).toFixed(6)}}ETH</a>
                 </div>
-                <div>
+                <div [hidden]="rideManager._driver_ongoingRideData">
                     <button class="button button-primary button-shadow button-sp mat-elevation-z7"
                         (click)="acceptRide()">Accept Ride</button>
                     <p>NOTE:You can either accept this ride or wait for sometime then reload this page....</p>

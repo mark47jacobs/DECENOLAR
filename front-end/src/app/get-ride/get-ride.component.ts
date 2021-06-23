@@ -4,6 +4,8 @@ import { RideManagerService } from '../ride-manager.service';
 import * as mapboxgl from 'mapbox-gl';
 import * as MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
 import { environment } from 'src/environments/environment';
+import { interval } from 'rxjs';
+import { startWith, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-get-ride',
@@ -202,6 +204,8 @@ export class GetRideComponent implements OnInit {
         if (response.message === "ride accepted successfully") {
           this.rideManager._driver_driverMessage = response.message + "!! Please head over to the pickup point";
           this.rideManager._driver_ongoingRideData = this.contractManager.parseRideData(response.data);
+          this.startPollingForRideFinishConfirmation();
+          // add markers and path data to the map.
         }
         else {
           this.rideManager._driver_driverMessage = response.message;
@@ -217,5 +221,25 @@ export class GetRideComponent implements OnInit {
         }, 8000);
       }
     })
+  }
+  timeInterval: any;
+
+  startPollingForRideFinishConfirmation() {
+    this.timeInterval = interval(30000).pipe(
+      startWith(0),
+      switchMap(() => this.contractManager.checkRideStatusAndCompleteDriver())).subscribe((response: any) => {
+        console.log(response);
+        if (response.success) {
+          this.rideManager._driver_driverMessage = 'Ride has been completed and payment done!';
+          history.back();
+          this.rideManager.ride_data = response.data;
+          console.log(this.rideManager.ride_data);
+          this.timeInterval.unsubscribe();
+        }
+        else {
+          this.rideManager._driver_driverMessage = "Please drop-off the passenger/s to their respective";
+          this.rideManager.rideRequestSuccessfull = false;
+        }
+      })
   }
 }

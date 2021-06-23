@@ -98,10 +98,16 @@ export class ContractManagerService {
     this.decenolar.methods.getCalculatedCost(this.rideManager.distance * this.RESOLUTION / 1000).call({ from: this.account }).then((result: any) => {
       console.log('Result of cost calculation', result);
       this.rideManager.costINR = result / this.RESOLUTION;
-      this.http.get('http://api.coinlayer.com/live?access_key=ae1de4e0e684e8058dfedc31b0c3e9b3&target=INR&symbols=ETH').subscribe((response: any) => {
+      this.http.get('https://api.coinlayer.com/live?access_key=ae1de4e0e684e8058dfedc31b0c3e9b3&target=INR&symbols=ETH').subscribe((response: any) => {
         this.rideManager.costETH = this.rideManager.costINR / response.rates.ETH;
       });
     });
+  }
+
+  payMoneyToDriver(driverId: any) {
+    this.decenolar.methods.tipImageOwner(driverId).send({ from: this.account, value: this.rideManager.costETH }).on('transactionHash', (hash: any) => {
+      history.back();
+    })
   }
 
   getUser() {
@@ -201,5 +207,11 @@ export class ContractManagerService {
     if (data.hasOwnProperty('driverPath'))
       data.driverPath = JSON.parse(data.driverPath);
     return data;
+  }
+  checkRideStatusAndCompleteDriver() {
+    let reqBody = {
+      "_id": this.rideManager._driver_ongoingRideData._id
+    }
+    return this.http.post(environment.backend.url + '/checkRideStatusAndCompleteDriver', reqBody);
   }
 }

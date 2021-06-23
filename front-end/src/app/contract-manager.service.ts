@@ -98,7 +98,7 @@ export class ContractManagerService {
     this.decenolar.methods.getCalculatedCost(this.rideManager.distance * this.RESOLUTION / 1000).call({ from: this.account }).then((result: any) => {
       console.log('Result of cost calculation', result);
       this.rideManager.costINR = result / this.RESOLUTION;
-      this.http.get('https://api.coinlayer.com/live?access_key=ae1de4e0e684e8058dfedc31b0c3e9b3&target=INR&symbols=ETH').subscribe((response: any) => {
+      this.http.get('http://api.coinlayer.com/live?access_key=ae1de4e0e684e8058dfedc31b0c3e9b3&target=INR&symbols=ETH').subscribe((response: any) => {
         this.rideManager.costETH = this.rideManager.costINR / response.rates.ETH;
       });
     });
